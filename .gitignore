@@ -1,0 +1,9 @@
+*~
+*.o
+build/
+tests/
+
+lex.c
+parser.c
+tok.h
+*.output
