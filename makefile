@@ -4,12 +4,12 @@ EXEC		= ./masmbin
 ## PATHS
 INCLUDE		= ./include
 LIB			= ./src/lib
-SURFACE 	= ./src
-BUILD   	= ./build
-OBJS    	= $(addprefix $(BUILD)/, $(OBJ_FILES))
+SURFACE		= ./src
+BUILD		= ./build
+OBJS		= $(addprefix $(BUILD)/, $(OBJ_FILES))
 
 ## BUILD TOOLS
-CC      	= gcc
+CC			= gcc
 CFLAGS		= -std=c99 -Iinclude/ -ggdb3 -Wall -Wextra
 CLIBS		= -lfl
 
@@ -63,15 +63,3 @@ clean:
 	rm -f 	$(SURFACE)/lex.c $(SURFACE)/lex.yy.c $(SURFACE)/parser.c\
 			$(SURFACE)/tok.h $(SURFACE)/parser.tab.c $(SURFACE)/parser.tab.h\
 			$(SURFACE)/parser.output
-
-
-
-
-
-
-
-
-
-
-
-
