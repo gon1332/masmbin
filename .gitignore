@@ -3,6 +3,9 @@
 build/
 tests/
 
+# Executive
+masmbin
+
 lex.c
 parser.c
 tok.h
