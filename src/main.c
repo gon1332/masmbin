@@ -8,13 +8,13 @@ int main(int argc, char *argv[])
     extern FILE *yyin;
 
     argv++, argc--;
-    if (argc > 0) {
+    if (3 == argc) {
         if (NULL == (yyin = fopen(argv[0], "r"))) {
             perror("masmbin: error");
             exit(EXIT_FAILURE);
         }
     } else {
-        printf("Usage: masmbin <in_file.ms>\n");
+        printf("Usage: masmbin <in_file> <out_file>\n");
         exit(EXIT_FAILURE);
     }
 
