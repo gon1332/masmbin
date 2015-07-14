@@ -1,4 +1,5 @@
 #include "asm.h"
+#include "globals.h"
 #include <stdio.h>
 
 const char *ins_create_r(
@@ -10,7 +11,7 @@ const char *ins_create_r(
         const char *func
         )
 {
-    fprintf(stdout, "%s_%s_%s_%s_%s_%s\n", opcode, s_reg, t_reg, d_reg, shamt, func);
+    fprintf(fout, "%s_%s_%s_%s_%s_%s\n", opcode, s_reg, t_reg, d_reg, shamt, func);
     return NULL;
 }
 
@@ -21,7 +22,7 @@ const char *ins_create_i(
         const char *imm
         )
 {
-    fprintf(stdout, "%s_%s_%s_%s\n", opcode, s_reg, t_reg, imm);
+    fprintf(fout, "%s_%s_%s_%s\n", opcode, s_reg, t_reg, imm);
     return NULL;
 }
 
@@ -30,6 +31,12 @@ const char *ins_create_j(
         const char *imm
         )
 {
-    fprintf(stdout, "%s_%s\n", opcode, imm);
+    fprintf(fout, "%s_%s\n", opcode, imm);
+    return NULL;
+}
+
+const char *ins_create_label(const char *label)
+{
+    fprintf(fout, "%s\n", label);
     return NULL;
 }

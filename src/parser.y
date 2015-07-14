@@ -64,7 +64,7 @@ assembly_code   : START NUM instructions
                 ;
 
 instructions    : instructions instruction
-                | LABEL_DEFIN
+                | LABEL_DEFIN { INS_NEW_LABEL($1); }
                 ;
 
 instruction     : ADD    REG COMMA REG COMMA REG { INS_NEW_ADD($2, $4, $6);   }

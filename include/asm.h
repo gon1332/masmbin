@@ -1,6 +1,9 @@
 #ifndef ASM_H_W23GKNVE
 #define ASM_H_W23GKNVE
 
+
+
+
 /* ========================================================================== */
 // R Format
 /* -------- Arithmetic and Logical Instructions ----------------------------- */
@@ -88,6 +91,15 @@
 
 /* -------- Exception and Interrupt Instructions ---------------------------- */
 
+
+
+/* ========================================================================== */
+// Others:
+/* -------- Labels and more ------------------------------------------------- */
+#define INS_NEW_LABEL(x)    ins_create_label(x)
+
+
+
 extern
 const char *ins_create_r(
         const char *opcode, /* 6 bits */
@@ -112,6 +124,8 @@ const char *ins_create_j(
         const char *imm     /* 26 bits */
         );
 
+extern
+const char *ins_create_label(const char *label);
 
 #endif /* ASM_H_W23GKNVE */
 

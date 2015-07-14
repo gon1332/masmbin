@@ -215,7 +215,6 @@ xori
 
 {LABEL_DEFIN} {
     yylval.string = strdup(yytext);
-    puts(yylval.string);
     return LABEL_DEFIN;
 }
 

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "globals.h"
 
 void yyparse(void);
 
@@ -22,7 +23,7 @@ int main(int argc, char *argv[])
 
     /* Open 2nd argument for write.
      * */
-    FILE *fout;
+    extern FILE *fout;
     if (NULL == (fout = fopen(argv[2], "w"))) {
         perror("masmbin: error");
         exit(EXIT_FAILURE);
