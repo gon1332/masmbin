@@ -1,20 +1,69 @@
 #ifndef ASM_H_W23GKNVE
 #define ASM_H_W23GKNVE
 
+/* ========================================================================== */
+// Instruction Fields in bits */
+/* -------- Opcode ---------------------------------------------------------- */
+#define OP_RFMT     "000000"
+#define OP_LW       "100011"
+#define OP_SW       "101011"
+#define OP_BEQ      "000100"
+#define OP_BNE      "000101"
+
+/* -------- Function codes -------------------------------------------------- */
+#define ADD_func    "100000"
+#define SUB_func    "100010"
+#define AND_func    "100100"
+#define OR_func     "100101"
+#define SLT_func    "101010"
+
+/* -------- Registers ------------------------------------------------------- */
+#define REG0        "00000"
+#define REG1        "00001"
+#define REG2        "00010"
+#define REG3        "00011"
+#define REG4        "00100"
+#define REG5        "00101"
+#define REG6        "00110"
+#define REG7        "00111"
+#define REG8        "01000"
+#define REG9        "01001"
+#define REG10       "01010"
+#define REG11       "01011"
+#define REG12       "01100"
+#define REG13       "01101"
+#define REG14       "01110"
+#define REG15       "01111"
+#define REG16       "10000"
+#define REG17       "10001"
+#define REG18       "10010"
+#define REG19       "10011"
+#define REG20       "10100"
+#define REG21       "10101"
+#define REG22       "10110"
+#define REG23       "10111"
+#define REG24       "11000"
+#define REG25       "11001"
+#define REG26       "11010"
+#define REG27       "11011"
+#define REG28       "11100"
+#define REG29       "11101"
+#define REG30       "11110"
+#define REG31       "11111"
 
 
 
 /* ========================================================================== */
 // R Format
 /* -------- Arithmetic and Logical Instructions ----------------------------- */
-#define INS_NEW_ADD(d, s, t)   ins_create_r("000000", s, t, d, "00000", "100000")
-#define INS_NEW_ADDU(d, s, t)  ins_create_r("000000", s, t, d, "00000", "100001")
-#define INS_NEW_AND(d, s, t)   ins_create_r("000000", s, t, d, "00000", "100100")
-#define INS_NEW_DIV(d, s, t)   ins_create_r("000000", s, t, d, "00000", "011010")
-#define INS_NEW_DIVU(d, s, t)  ins_create_r("000000", s, t, d, "00000", "011011")
-#define INS_NEW_MULT(d, s, t)  ins_create_r("000000", s, t, d, "00000", "011000")
-#define INS_NEW_MULTU(d, s, t) ins_create_r("000000", s, t, d, "00000", "011001")
-#define INS_NEW_OR(d, s, t)    ins_create_r("000000", s, t, d, "00000", "100101")
+#define INS_NEW_ADD(d, s, t)   ins_create_r(OP_RFMT, s, t, d, "00000", "100000")
+#define INS_NEW_ADDU(d, s, t)  ins_create_r(OP_RFMT, s, t, d, "00000", "100001")
+#define INS_NEW_AND(d, s, t)   ins_create_r(OP_RFMT, s, t, d, "00000", "100100")
+#define INS_NEW_DIV(d, s, t)   ins_create_r(OP_RFMT, s, t, d, "00000", "011010")
+#define INS_NEW_DIVU(d, s, t)  ins_create_r(OP_RFMT, s, t, d, "00000", "011011")
+#define INS_NEW_MULT(d, s, t)  ins_create_r(OP_RFMT, s, t, d, "00000", "011000")
+#define INS_NEW_MULTU(d, s, t) ins_create_r(OP_RFMT, s, t, d, "00000", "011001")
+#define INS_NEW_OR(d, s, t)    ins_create_r(OP_RFMT, s, t, d, "00000", "100101")
 
 /* -------- Constant-Manipulating Instructions ------------------------------ */
 
@@ -99,9 +148,11 @@
 #define INS_NEW_LABEL(x)    ins_create_label(x)
 
 
+extern
+const char *which_reg(const char *reg);
 
 extern
-const char *ins_create_r(
+int ins_create_r(
         const char *opcode, /* 6 bits */
         const char *s_reg,  /* 5 bits */
         const char *t_reg,  /* 5 bits */
@@ -111,7 +162,7 @@ const char *ins_create_r(
         );
 
 extern
-const char *ins_create_i(
+int ins_create_i(
         const char *opcode, /*  6 bits */
         const char *s_reg,  /*  5 bits */
         const char *t_reg,  /*  5 bits */
@@ -119,13 +170,13 @@ const char *ins_create_i(
         );
 
 extern
-const char *ins_create_j(
+int ins_create_j(
         const char *opcode, /*  6 bits */
         const char *imm     /* 26 bits */
         );
 
 extern
-const char *ins_create_label(const char *label);
+int ins_create_label(const char *label);
 
 #endif /* ASM_H_W23GKNVE */
 
