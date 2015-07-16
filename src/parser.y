@@ -65,10 +65,11 @@ assembly_code : START NUM instructions
               ;
 
 instructions : instructions instruction
-             | LABEL_DEFIN { check_ret( INS_NEW_LABEL($1) ); }
+             | /* empty */
              ;
 
-instruction  : ADD    REG COMMA REG COMMA REG     { check_ret( INS_NEW_ADD($2, $4, $6) );   }
+instruction  : LABEL_DEFIN                        { check_ret( INS_NEW_LABEL($1) );         }
+             | ADD    REG COMMA REG COMMA REG     { check_ret( INS_NEW_ADD($2, $4, $6) );   }
              | ADDI   REG COMMA REG COMMA NUM     { check_ret( INS_NEW_ADDI($2, $4, $6) );  }
              | ADDIU  REG COMMA REG COMMA NUM     { check_ret( INS_NEW_ADDIU($2, $4, $6) ); }
              | ADDU   REG COMMA REG COMMA REG     { check_ret( INS_NEW_ADDU($2, $4, $6) );  }
