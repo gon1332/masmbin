@@ -1,4 +1,4 @@
-OBJ_FILES	= strdup.o asm.o parser.o lex.o main.o
+OBJ_FILES	= strdup.o asm.o hash.o label_map.o parser.o lex.o main.o
 EXEC		= ./masmbin
 
 ## PATHS
@@ -30,6 +30,8 @@ $(BUILD)/%.o:
 ## LIBRARIES
 $(BUILD)/strdup.o: $(SURFACE)/strdup.c $(INCLUDE)/strdup.h
 $(BUILD)/asm.o: $(SURFACE)/asm.c $(INCLUDE)/asm.h
+$(BUILD)/hash.o: $(SURFACE)/hash.c $(INCLUDE)/hash.h
+$(BUILD)/label_map.o: $(SURFACE)/label_map.c $(INCLUDE)/label_map.h
 
 ## PARSER
 $(BUILD)/parser.o: $(SURFACE)/parser.c

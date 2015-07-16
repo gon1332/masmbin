@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "globals.h"
+#include "label_map.h"
 
 void yyparse(void);
 
@@ -28,6 +30,18 @@ int main(int argc, char *argv[])
         perror("masmbin: error");
         exit(EXIT_FAILURE);
     }
+
+    /* Map MIPS assembly labels to addresses.
+     * */
+    extern map_t *lbl_map;
+    lbl_map = map_init();
+    if (!label_map(argv[1])) {
+        printf("masmbin: label_map: Could not initialize label map.\n");
+        map_free(lbl_map);
+        exit(EXIT_FAILURE);
+    }
+    /* Result is in lbl_map */
+
 
     /* Parse the input file.
      * */

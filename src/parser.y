@@ -1,7 +1,10 @@
 %{
     #include <stdio.h>
+    #include <stdlib.h>
     #include "asm.h"
     #include "parser.h"
+    #include "hash.h"
+    #include "globals.h"
 
 
     void yyerror  (const char *msg);
@@ -100,7 +103,14 @@ instruction  : LABEL_DEFIN                        { check_ret( INS_NEW_LABEL($1)
              | SW    REG COMMA NUM LPAREN REG RPAREN
              ;
 
-address      : LABEL_INSTR { $$ = $1; }
+address      : LABEL_INSTR
+                {
+                    int address;
+                    if (-1 == (address = map_lookup(lbl_map, $1))) {
+                        check_ret(-1);
+                    }
+                    sprintf($$, "%d", address); // Convert integer to ascii.
+                }
              | NUM   { $$ = $1; }
              ;
 %%
@@ -119,10 +129,17 @@ void yyerror(const char *msg)
 void check_ret(int code)
 {
     switch (code) {
-    case 0: break;
+    case 0: goto L_SUCC;
     case 1: yyerror("s_reg is not valid."); break;
     case 2: yyerror("t_reg is not valid."); break;
     case 3: yyerror("d_reg is not valid."); break;
+    case -1: yyerror("Undefined reference to label."); break;
     default: yyerror("Unknown error occured."); break;
     }
+
+    map_free(lbl_map);
+    exit(EXIT_FAILURE);
+
+L_SUCC:
+    return;
 }
