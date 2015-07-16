@@ -2,6 +2,7 @@
 *.o
 build/
 tests/
+todo
 
 # Executable
 masmbin
