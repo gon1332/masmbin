@@ -29,7 +29,7 @@ W           [ \t]
 SPECIAL_C   [._]
 
 LABEL_INSTR {LETTER}({LETTER}|{DIGIT}|{SPECIAL_C})*
-LABEL_DEFIN {LETTER}({LETTER}|{DIGIT}|{SPECIAL_C})*:
+LABEL_DEFIN {LABEL_INSTR}:
 
 REG_NAME    $(zero|at|v[01]|a[0-3]|t[0-9]|s[0-7]|k[01]|gp|sp|fp|ra)
 REG_NUM     $([0-9]|1[0-9]|2[0-9]|3[0-2])
