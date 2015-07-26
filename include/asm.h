@@ -56,14 +56,14 @@
 /* ========================================================================== */
 // R Format
 /* -------- Arithmetic and Logical Instructions ----------------------------- */
-#define INS_NEW_ADD(d, s, t)   ins_create_r(OP_RFMT, s, t, d, "00000", "100000")
-#define INS_NEW_ADDU(d, s, t)  ins_create_r(OP_RFMT, s, t, d, "00000", "100001")
-#define INS_NEW_AND(d, s, t)   ins_create_r(OP_RFMT, s, t, d, "00000", "100100")
-#define INS_NEW_DIV(d, s, t)   ins_create_r(OP_RFMT, s, t, d, "00000", "011010")
-#define INS_NEW_DIVU(d, s, t)  ins_create_r(OP_RFMT, s, t, d, "00000", "011011")
-#define INS_NEW_MULT(d, s, t)  ins_create_r(OP_RFMT, s, t, d, "00000", "011000")
-#define INS_NEW_MULTU(d, s, t) ins_create_r(OP_RFMT, s, t, d, "00000", "011001")
-#define INS_NEW_OR(d, s, t)    ins_create_r(OP_RFMT, s, t, d, "00000", "100101")
+#define INS_NEW_ADD(a, d, s, t)   ins_create_r(a, OP_RFMT, s, t, d, "00000", "100000")
+#define INS_NEW_ADDU(a, d, s, t)  ins_create_r(a, OP_RFMT, s, t, d, "00000", "100001")
+#define INS_NEW_AND(a, d, s, t)   ins_create_r(a, OP_RFMT, s, t, d, "00000", "100100")
+#define INS_NEW_DIV(a, d, s, t)   ins_create_r(a, OP_RFMT, s, t, d, "00000", "011010")
+#define INS_NEW_DIVU(a, d, s, t)  ins_create_r(a, OP_RFMT, s, t, d, "00000", "011011")
+#define INS_NEW_MULT(a, d, s, t)  ins_create_r(a, OP_RFMT, s, t, d, "00000", "011000")
+#define INS_NEW_MULTU(a, d, s, t) ins_create_r(a, OP_RFMT, s, t, d, "00000", "011001")
+#define INS_NEW_OR(a, d, s, t)    ins_create_r(a, OP_RFMT, s, t, d, "00000", "100101")
 
 /* -------- Constant-Manipulating Instructions ------------------------------ */
 
@@ -85,29 +85,29 @@
 /* ========================================================================== */
 // I Format
 /* -------- Arithmetic and Logical Instructions ----------------------------- */
-#define INS_NEW_ADDI(t, s, i)  ins_create_i("001000", s, t, i)
-#define INS_NEW_ADDIU(t, s, i) ins_create_i("001001", s, t, i)
-#define INS_NEW_ANDI(t, s, i)  ins_create_i("001100", s, t, i)
-#define INS_NEW_ORI(t, s, i)   ins_create_i("001101", s, t, i)
+#define INS_NEW_ADDI(a, t, s, i)  ins_create_i(a, "001000", s, t, i)
+#define INS_NEW_ADDIU(a, t, s, i) ins_create_i(a, "001001", s, t, i)
+#define INS_NEW_ANDI(a, t, s, i)  ins_create_i(a, "001100", s, t, i)
+#define INS_NEW_ORI(a, t, s, i)   ins_create_i(a, "001101", s, t, i)
 
 /* -------- Constant-Manipulating Instructions ------------------------------ */
 
 /* -------- Comparison Instructions ----------------------------------------- */
-#define INS_NEW_SLTI(t, s, i)  ins_create_i("001010", s, t, i)
-#define INS_NEW_SLTIU(t, s, i) ins_create_i("001001", s, t, i)
+#define INS_NEW_SLTI(a, t, s, i)  ins_create_i(a, "001010", s, t, i)
+#define INS_NEW_SLTIU(a, t, s, i) ins_create_i(a, "001001", s, t, i)
 
 /* -------- Branch Instructions --------------------------------------------- */
-#define INS_NEW_BEQ(s, t, i) ins_create_i("000100", s, t, i)
-#define INS_NEW_BGEZ(s, i)   ins_create_i("000001", s, "00001", i)
-#define INS_NEW_BGEZAL(s, i) ins_create_i("000001", s, "10001", i)
-#define INS_NEW_BGTZ(s, i)   ins_create_i("000111", s, "00000", i)
-#define INS_NEW_BLEZ(s, i)   ins_create_i("000110", s, "00000", i)
-#define INS_NEW_BLTZ(s, i)   ins_create_i("000001", s, "00000", i)
-#define INS_NEW_BLTZAL(s, i) ins_create_i("000001", s, "10000", i)
-#define INS_NEW_BNE(s, t, i) ins_create_i("000101", s, t, i)
+#define INS_NEW_BEQ(a, s, t, i) ins_create_i(a, "000100", s, t, i)
+#define INS_NEW_BGEZ(a, s, i)   ins_create_i(a, "000001", s, "00001", i)
+#define INS_NEW_BGEZAL(a, s, i) ins_create_i(a, "000001", s, "10001", i)
+#define INS_NEW_BGTZ(a, s, i)   ins_create_i(a, "000111", s, "00000", i)
+#define INS_NEW_BLEZ(a, s, i)   ins_create_i(a, "000110", s, "00000", i)
+#define INS_NEW_BLTZ(a, s, i)   ins_create_i(a, "000001", s, "00000", i)
+#define INS_NEW_BLTZAL(a, s, i) ins_create_i(a, "000001", s, "10000", i)
+#define INS_NEW_BNE(a, s, t, i) ins_create_i(a, "000101", s, t, i)
 
 /* -------- Jump Instructions ----------------------------------------------- */
-#define INS_NEW_JR(s)   ins_create_i("000000", s, "00000", "0000000000001000")
+#define INS_NEW_JR(a, s)   ins_create_i(a, "000000", s, "00000", "0000000000001000")
 
 /* -------- Load Instructions ----------------------------------------------- */
 
@@ -129,8 +129,8 @@
 /* -------- Branch Instructions --------------------------------------------- */
 
 /* -------- Jump Instructions ----------------------------------------------- */
-#define INS_NEW_J(i)   ins_create_j("000010", i)
-#define INS_NEW_JAL(i) ins_create_j("000011", i)
+#define INS_NEW_J(a, i)   ins_create_j(a, "000010", i)
+#define INS_NEW_JAL(a, i) ins_create_j(a, "000011", i)
 
 /* -------- Load Instructions ----------------------------------------------- */
 
@@ -153,6 +153,7 @@ const char *which_reg(const char *reg);
 
 extern
 int ins_create_r(
+        const unsigned instr_addr,
         const char *opcode, /* 6 bits */
         const char *s_reg,  /* 5 bits */
         const char *t_reg,  /* 5 bits */
@@ -163,6 +164,7 @@ int ins_create_r(
 
 extern
 int ins_create_i(
+        const unsigned instr_addr,
         const char *opcode, /*  6 bits */
         const char *s_reg,  /*  5 bits */
         const char *t_reg,  /*  5 bits */
@@ -171,6 +173,7 @@ int ins_create_i(
 
 extern
 int ins_create_j(
+        const unsigned instr_addr,
         const char *opcode, /*  6 bits */
         const char *imm     /* 26 bits */
         );

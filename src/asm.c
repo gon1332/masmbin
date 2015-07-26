@@ -60,6 +60,7 @@ const char *which_reg(const char *reg)
  * */
 
 int ins_create_r(
+        const unsigned instr_addr,
         const char *opcode,
         const char *s_reg,
         const char *t_reg,
@@ -82,11 +83,12 @@ int ins_create_r(
     if (!d_bin) {
         return 3;   // error on d register
     }
-    fprintf(fout, "%s_%s_%s_%s_%s_%s\n", opcode, s_bin, t_bin, d_bin, shamt, func);
+    fprintf(fout, "@%x\t%s_%s_%s_%s_%s_%s\n", instr_addr, opcode, s_bin, t_bin, d_bin, shamt, func);
     return 0;
 }
 
 int ins_create_i(
+        const unsigned instr_addr,
         const char *opcode,
         const char *s_reg,
         const char *t_reg,
@@ -103,21 +105,23 @@ int ins_create_i(
         return 2;   // error on t register
     }
 
-    fprintf(fout, "%s_%s_%s_%s\n", opcode, s_bin, t_bin, imm);
+    fprintf(fout, "@%x\t%s_%s_%s_%s\n", instr_addr,  opcode, s_bin, t_bin, imm);
     return 0;
 }
 
 int ins_create_j(
+        const unsigned instr_addr,
         const char *opcode,
         const char *imm
         )
 {
-    fprintf(fout, "%s_%s\n", opcode, imm);
+    fprintf(fout, "@%x\t%s_%s\n", instr_addr,  opcode, imm);
     return 0;
 }
 
 int ins_create_label(const char *label)
 {
-    fprintf(fout, "%s\n", label);
+    (void)label;
+    //fprintf(fout, "%s\n", label);
     return 0;
 }
