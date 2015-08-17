@@ -1,9 +1,11 @@
 #include "asm.h"
 #include "globals.h"
+#include "convert.h"
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
 
-
+static int arithmetic_right_shift(int x, int n);
 
 /* TODO: gon1332 Hash the hell out of it. Τρι 14 Ιούλ 2015 05:07:01 μμ EEST */
 /*
@@ -92,7 +94,8 @@ int ins_create_i(
         const char *opcode,
         const char *s_reg,
         const char *t_reg,
-        const char *imm
+        const char *imm,
+        const bool is_addr
         )
 {
     const char *s_bin = which_reg(s_reg);
@@ -105,7 +108,12 @@ int ins_create_i(
         return 2;   // error on t register
     }
 
-    fprintf(fout, "@%x\t%s_%s_%s_%s\n", instr_addr,  opcode, s_bin, t_bin, imm);
+    int imm_num = convert_hex_bin_oct_to_dec(imm);
+
+    if (is_addr)
+        imm_num = arithmetic_right_shift((imm_num<<2) - (instr_addr+4), 2);
+
+    fprintf(fout, "@%x\t%s_%s_%s_%s\n", instr_addr,  opcode, s_bin, t_bin, &baseconv(imm_num, 2)[16]);
     return 0;
 }
 
@@ -115,7 +123,9 @@ int ins_create_j(
         const char *imm
         )
 {
-    fprintf(fout, "@%x\t%s_%s\n", instr_addr,  opcode, imm);
+    int imm_num = convert_hex_bin_oct_to_dec(imm);
+
+    fprintf(fout, "@%x\t%s_%s\n", instr_addr, opcode, &baseconv(imm_num, 2)[6]);
     return 0;
 }
 
@@ -125,3 +135,12 @@ int ins_create_label(const char *label)
     //fprintf(fout, "%s\n", label);
     return 0;
 }
+
+int arithmetic_right_shift(int x, int n)
+{
+    if (x < 0 && n > 0)
+        return x >> n | ~(~0U >> n);
+    else
+        return x >> n;
+}
+

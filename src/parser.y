@@ -6,6 +6,7 @@
     #include "hash.h"
     #include "globals.h"
 
+    #define GET_NEXT_ADDR(x) x+=4
 
     static unsigned instr_addr = 0;
 
@@ -74,31 +75,31 @@ instructions : instructions instruction
              ;
 
 instruction  : LABEL_DEFIN                        { check_ret( INS_NEW_LABEL($1) );         }
-             | ADD    REG COMMA REG COMMA REG     { check_ret( INS_NEW_ADD(instr_addr, $2, $4, $6) ); instr_addr++;   }
-             | ADDI   REG COMMA REG COMMA NUM     { check_ret( INS_NEW_ADDI(instr_addr, $2, $4, $6) ); instr_addr++;  }
-             | ADDIU  REG COMMA REG COMMA NUM     { check_ret( INS_NEW_ADDIU(instr_addr, $2, $4, $6) ); instr_addr++; }
-             | ADDU   REG COMMA REG COMMA REG     { check_ret( INS_NEW_ADDU(instr_addr, $2, $4, $6) ); instr_addr++;  }
-             | AND    REG COMMA REG COMMA REG     { check_ret( INS_NEW_AND(instr_addr, $2, $4, $6) ); instr_addr++;   }
-             | ANDI   REG COMMA REG COMMA NUM     { check_ret( INS_NEW_ANDI(instr_addr, $2, $4, $6) ); instr_addr++;  }
-             | BEQ    REG COMMA REG COMMA address { check_ret( INS_NEW_BEQ(instr_addr, $2, $4, $6) ); instr_addr++;   }
-             | BGEZ   REG COMMA address           { check_ret( INS_NEW_BGEZ(instr_addr, $2, $4) ); instr_addr++;      }
-             | BGEZAL REG COMMA address           { check_ret( INS_NEW_BGEZAL(instr_addr, $2, $4) ); instr_addr++;    }
-             | BGTZ   REG COMMA address           { check_ret( INS_NEW_BGTZ(instr_addr, $2, $4) ); instr_addr++;      }
-             | BLEZ   REG COMMA address           { check_ret( INS_NEW_BLEZ(instr_addr, $2, $4) ); instr_addr++;      }
-             | BLTZ   REG COMMA address           { check_ret( INS_NEW_BLTZ(instr_addr, $2, $4) ); instr_addr++;      }
-             | BLTZAL REG COMMA address           { check_ret( INS_NEW_BLTZAL(instr_addr, $2, $4) ); instr_addr++;    }
-             | BNE    REG COMMA REG COMMA address { check_ret( INS_NEW_BNE(instr_addr, $2, $4, $6) ); instr_addr++;   }
-             | DIV    REG COMMA REG COMMA REG     { check_ret( INS_NEW_DIV(instr_addr, $2, $4, $6) ); instr_addr++;   }
-             | DIVU   REG COMMA REG COMMA REG     { check_ret( INS_NEW_DIVU(instr_addr, $2, $4, $6) ); instr_addr++;  }
-             | J      address                     { check_ret( INS_NEW_J(instr_addr, $2) ); instr_addr++;             }
-             | JAL    address                     { check_ret( INS_NEW_JAL(instr_addr, $2) ); instr_addr++;           }
-             | JR     REG                         { check_ret( INS_NEW_JR(instr_addr, $2) ); instr_addr++;            }
-             | MULT   REG COMMA REG COMMA REG     { check_ret( INS_NEW_MULT(instr_addr, $2, $4, $6) ); instr_addr++;  }
-             | MULTU  REG COMMA REG COMMA REG     { check_ret( INS_NEW_MULTU(instr_addr, $2, $4, $6) ); instr_addr++; }
-             | OR     REG COMMA REG COMMA NUM     { check_ret( INS_NEW_ORI(instr_addr, $2, $4, $6) ); instr_addr++;   }
-             | ORI    REG COMMA REG COMMA NUM     { check_ret( INS_NEW_ORI(instr_addr, $2, $4, $6) ); instr_addr++;   }
-             | SLTI   REG COMMA REG COMMA NUM     { check_ret( INS_NEW_SLTI(instr_addr, $2, $4, $6) ); instr_addr++;  }
-             | SLTIU  REG COMMA REG COMMA NUM     { check_ret( INS_NEW_SLTIU(instr_addr, $2, $4, $6) ); instr_addr++; }
+             | ADD    REG COMMA REG COMMA REG     { check_ret( INS_NEW_ADD(instr_addr, $2, $4, $6) ); GET_NEXT_ADDR(instr_addr);   }
+             | ADDI   REG COMMA REG COMMA NUM     { check_ret( INS_NEW_ADDI(instr_addr, $2, $4, $6) ); GET_NEXT_ADDR(instr_addr);  }
+             | ADDIU  REG COMMA REG COMMA NUM     { check_ret( INS_NEW_ADDIU(instr_addr, $2, $4, $6) ); GET_NEXT_ADDR(instr_addr); }
+             | ADDU   REG COMMA REG COMMA REG     { check_ret( INS_NEW_ADDU(instr_addr, $2, $4, $6) ); GET_NEXT_ADDR(instr_addr);  }
+             | AND    REG COMMA REG COMMA REG     { check_ret( INS_NEW_AND(instr_addr, $2, $4, $6) ); GET_NEXT_ADDR(instr_addr);   }
+             | ANDI   REG COMMA REG COMMA NUM     { check_ret( INS_NEW_ANDI(instr_addr, $2, $4, $6) ); GET_NEXT_ADDR(instr_addr);  }
+             | BEQ    REG COMMA REG COMMA address { check_ret( INS_NEW_BEQ(instr_addr, $2, $4, $6) ); GET_NEXT_ADDR(instr_addr);   }
+             | BGEZ   REG COMMA address           { check_ret( INS_NEW_BGEZ(instr_addr, $2, $4) ); GET_NEXT_ADDR(instr_addr);      }
+             | BGEZAL REG COMMA address           { check_ret( INS_NEW_BGEZAL(instr_addr, $2, $4) ); GET_NEXT_ADDR(instr_addr);    }
+             | BGTZ   REG COMMA address           { check_ret( INS_NEW_BGTZ(instr_addr, $2, $4) ); GET_NEXT_ADDR(instr_addr);      }
+             | BLEZ   REG COMMA address           { check_ret( INS_NEW_BLEZ(instr_addr, $2, $4) ); GET_NEXT_ADDR(instr_addr);      }
+             | BLTZ   REG COMMA address           { check_ret( INS_NEW_BLTZ(instr_addr, $2, $4) ); GET_NEXT_ADDR(instr_addr);      }
+             | BLTZAL REG COMMA address           { check_ret( INS_NEW_BLTZAL(instr_addr, $2, $4) ); GET_NEXT_ADDR(instr_addr);    }
+             | BNE    REG COMMA REG COMMA address { check_ret( INS_NEW_BNE(instr_addr, $2, $4, $6) ); GET_NEXT_ADDR(instr_addr);   }
+             | DIV    REG COMMA REG COMMA REG     { check_ret( INS_NEW_DIV(instr_addr, $2, $4, $6) ); GET_NEXT_ADDR(instr_addr);   }
+             | DIVU   REG COMMA REG COMMA REG     { check_ret( INS_NEW_DIVU(instr_addr, $2, $4, $6) ); GET_NEXT_ADDR(instr_addr);  }
+             | J      address                     { check_ret( INS_NEW_J(instr_addr, $2) ); GET_NEXT_ADDR(instr_addr);             }
+             | JAL    address                     { check_ret( INS_NEW_JAL(instr_addr, $2) ); GET_NEXT_ADDR(instr_addr);           }
+             | JR     REG                         { check_ret( INS_NEW_JR(instr_addr, $2) ); GET_NEXT_ADDR(instr_addr);            }
+             | MULT   REG COMMA REG COMMA REG     { check_ret( INS_NEW_MULT(instr_addr, $2, $4, $6) ); GET_NEXT_ADDR(instr_addr);  }
+             | MULTU  REG COMMA REG COMMA REG     { check_ret( INS_NEW_MULTU(instr_addr, $2, $4, $6) ); GET_NEXT_ADDR(instr_addr); }
+             | OR     REG COMMA REG COMMA NUM     { check_ret( INS_NEW_ORI(instr_addr, $2, $4, $6) ); GET_NEXT_ADDR(instr_addr);   }
+             | ORI    REG COMMA REG COMMA NUM     { check_ret( INS_NEW_ORI(instr_addr, $2, $4, $6) ); GET_NEXT_ADDR(instr_addr);   }
+             | SLTI   REG COMMA REG COMMA NUM     { check_ret( INS_NEW_SLTI(instr_addr, $2, $4, $6) ); GET_NEXT_ADDR(instr_addr);  }
+             | SLTIU  REG COMMA REG COMMA NUM     { check_ret( INS_NEW_SLTIU(instr_addr, $2, $4, $6) ); GET_NEXT_ADDR(instr_addr); }
 /*------------------------------------------------------------------------*/
              | LUI   REG COMMA NUM
              | LW    REG COMMA NUM LPAREN REG RPAREN

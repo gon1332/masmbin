@@ -1,4 +1,4 @@
-OBJ_FILES	= strdup.o asm.o hash.o label_map.o parser.o lex.o main.o
+OBJ_FILES	= convert.o strdup.o asm.o hash.o label_map.o parser.o lex.o main.o
 EXEC		= ./masmbin
 
 ## PATHS
@@ -11,7 +11,7 @@ OBJS		= $(addprefix $(BUILD)/, $(OBJ_FILES))
 ## BUILD TOOLS
 CC			= gcc
 CFLAGS		= -std=c99 -Iinclude/ -ggdb3 -Wall -Wextra
-CLIBS		= -lfl
+CLIBS		= -lfl -lm
 
 masmbin: info build_dir $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(EXEC) $(CLIBS)
@@ -28,6 +28,7 @@ $(BUILD)/%.o:
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 ## LIBRARIES
+$(BUILD)/convert.o: $(SURFACE)/convert.c $(INCLUDE)/convert.h
 $(BUILD)/strdup.o: $(SURFACE)/strdup.c $(INCLUDE)/strdup.h
 $(BUILD)/asm.o: $(SURFACE)/asm.c $(INCLUDE)/asm.h
 $(BUILD)/hash.o: $(SURFACE)/hash.c $(INCLUDE)/hash.h

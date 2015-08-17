@@ -1,6 +1,8 @@
 #ifndef ASM_H_W23GKNVE
 #define ASM_H_W23GKNVE
 
+#include <stdbool.h>
+
 /* ========================================================================== */
 // Instruction Fields in bits */
 /* -------- Opcode ---------------------------------------------------------- */
@@ -85,29 +87,29 @@
 /* ========================================================================== */
 // I Format
 /* -------- Arithmetic and Logical Instructions ----------------------------- */
-#define INS_NEW_ADDI(a, t, s, i)  ins_create_i(a, "001000", s, t, i)
-#define INS_NEW_ADDIU(a, t, s, i) ins_create_i(a, "001001", s, t, i)
-#define INS_NEW_ANDI(a, t, s, i)  ins_create_i(a, "001100", s, t, i)
-#define INS_NEW_ORI(a, t, s, i)   ins_create_i(a, "001101", s, t, i)
+#define INS_NEW_ADDI(a, t, s, i)  ins_create_i(a, "001000", s, t, i, false)
+#define INS_NEW_ADDIU(a, t, s, i) ins_create_i(a, "001001", s, t, i, false)
+#define INS_NEW_ANDI(a, t, s, i)  ins_create_i(a, "001100", s, t, i, false)
+#define INS_NEW_ORI(a, t, s, i)   ins_create_i(a, "001101", s, t, i, false)
 
 /* -------- Constant-Manipulating Instructions ------------------------------ */
 
 /* -------- Comparison Instructions ----------------------------------------- */
-#define INS_NEW_SLTI(a, t, s, i)  ins_create_i(a, "001010", s, t, i)
-#define INS_NEW_SLTIU(a, t, s, i) ins_create_i(a, "001001", s, t, i)
+#define INS_NEW_SLTI(a, t, s, i)  ins_create_i(a, "001010", s, t, i, false)
+#define INS_NEW_SLTIU(a, t, s, i) ins_create_i(a, "001001", s, t, i, false)
 
 /* -------- Branch Instructions --------------------------------------------- */
-#define INS_NEW_BEQ(a, s, t, i) ins_create_i(a, "000100", s, t, i)
-#define INS_NEW_BGEZ(a, s, i)   ins_create_i(a, "000001", s, "00001", i)
-#define INS_NEW_BGEZAL(a, s, i) ins_create_i(a, "000001", s, "10001", i)
-#define INS_NEW_BGTZ(a, s, i)   ins_create_i(a, "000111", s, "00000", i)
-#define INS_NEW_BLEZ(a, s, i)   ins_create_i(a, "000110", s, "00000", i)
-#define INS_NEW_BLTZ(a, s, i)   ins_create_i(a, "000001", s, "00000", i)
-#define INS_NEW_BLTZAL(a, s, i) ins_create_i(a, "000001", s, "10000", i)
-#define INS_NEW_BNE(a, s, t, i) ins_create_i(a, "000101", s, t, i)
+#define INS_NEW_BEQ(a, s, t, i) ins_create_i(a, "000100", s, t, i, true)
+#define INS_NEW_BGEZ(a, s, i)   ins_create_i(a, "000001", s, "00001", i, true)
+#define INS_NEW_BGEZAL(a, s, i) ins_create_i(a, "000001", s, "10001", i, true)
+#define INS_NEW_BGTZ(a, s, i)   ins_create_i(a, "000111", s, "00000", i, true)
+#define INS_NEW_BLEZ(a, s, i)   ins_create_i(a, "000110", s, "00000", i, true)
+#define INS_NEW_BLTZ(a, s, i)   ins_create_i(a, "000001", s, "00000", i, true)
+#define INS_NEW_BLTZAL(a, s, i) ins_create_i(a, "000001", s, "10000", i, true)
+#define INS_NEW_BNE(a, s, t, i) ins_create_i(a, "000101", s, t, i, true)
 
 /* -------- Jump Instructions ----------------------------------------------- */
-#define INS_NEW_JR(a, s)   ins_create_i(a, "000000", s, "00000", "0000000000001000")
+#define INS_NEW_JR(a, s)   ins_create_i(a, "000000", s, "00000", "0000000000001000", false)
 
 /* -------- Load Instructions ----------------------------------------------- */
 
@@ -168,7 +170,8 @@ int ins_create_i(
         const char *opcode, /*  6 bits */
         const char *s_reg,  /*  5 bits */
         const char *t_reg,  /*  5 bits */
-        const char *imm     /* 16 bits */
+        const char *imm,    /* 16 bits */
+        const bool is_addr
         );
 
 extern
