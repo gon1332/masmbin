@@ -123,7 +123,7 @@ int ins_create_j(
         const char *imm
         )
 {
-    int imm_num = convert_hex_bin_oct_to_dec(imm);
+    int imm_num = arithmetic_right_shift(4 * convert_hex_bin_oct_to_dec(imm), 1);
 
     fprintf(fout, "@%x\t%s_%s\n", instr_addr, opcode, &baseconv(imm_num, 2)[6]);
     return 0;
