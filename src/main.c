@@ -38,6 +38,8 @@ int main(int argc, char *argv[])
     if (!label_map(argv[1])) {
         printf("masmbin: label_map: Could not initialize label map.\n");
         map_free(lbl_map);
+        fclose(yyin);
+        fclose(fout);
         exit(EXIT_FAILURE);
     }
     /* Result is in lbl_map */
@@ -46,6 +48,9 @@ int main(int argc, char *argv[])
     /* Parse the input file.
      * */
     yyparse();
+
+    fclose(yyin);
+    fclose(fout);
 
     return EXIT_SUCCESS;
 }
