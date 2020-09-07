@@ -96,7 +96,7 @@ instruction  : LABEL_DEFIN                        { check_ret( INS_NEW_LABEL($1)
              | JR     REG                         { check_ret( INS_NEW_JR(instr_addr, $2) ); GET_NEXT_ADDR(instr_addr);            }
              | MULT   REG COMMA REG COMMA REG     { check_ret( INS_NEW_MULT(instr_addr, $2, $4, $6) ); GET_NEXT_ADDR(instr_addr);  }
              | MULTU  REG COMMA REG COMMA REG     { check_ret( INS_NEW_MULTU(instr_addr, $2, $4, $6) ); GET_NEXT_ADDR(instr_addr); }
-             | OR     REG COMMA REG COMMA NUM     { check_ret( INS_NEW_ORI(instr_addr, $2, $4, $6) ); GET_NEXT_ADDR(instr_addr);   }
+             | OR     REG COMMA REG COMMA REG     { check_ret( INS_NEW_OR(instr_addr, $2, $4, $6) ); GET_NEXT_ADDR(instr_addr);   }
              | ORI    REG COMMA REG COMMA NUM     { check_ret( INS_NEW_ORI(instr_addr, $2, $4, $6) ); GET_NEXT_ADDR(instr_addr);   }
              | SLTI   REG COMMA REG COMMA NUM     { check_ret( INS_NEW_SLTI(instr_addr, $2, $4, $6) ); GET_NEXT_ADDR(instr_addr);  }
              | SLTIU  REG COMMA REG COMMA NUM     { check_ret( INS_NEW_SLTIU(instr_addr, $2, $4, $6) ); GET_NEXT_ADDR(instr_addr); }
