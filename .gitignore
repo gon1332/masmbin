@@ -3,6 +3,7 @@
 build/
 tests/
 todo
+test_results
 
 # Executable
 masmbin
